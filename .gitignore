@@ -166,3 +166,7 @@ cython_debug/
 codes/ecg-image-generator/HandwrittenText.png
 /sample-data
 /sample-data/ecg-images
+*.dat
+*.hea
+*.json
+*.png
