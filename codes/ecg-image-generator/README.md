@@ -74,6 +74,7 @@ The basic mode of the tool creates ECG images without distortions. The mode of o
 - `--store_config`: Store config information for each image in a json file, type = int, Default: 0, constant value: 1, If `--store_config` is set to 1, the config file has high level attributes, refer template1.json. If  `--store_config` is set to 2, config file will have more detailed information, refer template2.json.
 - `--lead_name_bbox`: Store bounding box coordinates for the lead names in the json file under the attribute `text_bounding_box` in the config JSON file generated for every record (conditional); Add `--store_config` parameter to the command you are running. Note: Add `--store_config` parameter to the command you are running to save the config file with bounding box information. 
 - `--lead_bbox`:  Store bounding box coordinates for every individual ECG lead signal in the json file under the attribute `lead_bounding_box` in the config JSON file generated for every record (conditional). Note: Add `--store_config` parameter to the command you are running to save the config file with bounding box information. 
+  When `--lead_bbox` or `--lead_name_bbox` is set, the tool will automatically enable `--store_config` to ensure the JSON file is written.
 
      **Example:** 
      ```bash
@@ -178,6 +179,8 @@ The basic mode of the tool creates ECG images without distortions. The mode of o
      ```bash
      python gen_ecg_images_from_data_batch.py -i my_input_dir -o my_output_dir --augment -rot 5 -noise 40 --deterministic_rot --deterministic_noise --hw_text -n 4 --x_offset 30 --y_offset 20 --wrinkles -ca 45 -se 10 --print_header --add_qr_code
      ```
+
+     To save step-by-step outputs (distortionless, handwritten text, wrinkles, augment, and final image), add `--save_distortion_steps`. This writes additional images alongside the final output with suffixes like `_step0_distortionless`, `_step1_hw_text`, `_step2_wrinkles`, `_step3_augment`, and `_step4_all`.
 
      - All distortions on synthetic images generated from the [PhysioNet PTB-XL](https://physionet.org/content/ptb-xl/)
 

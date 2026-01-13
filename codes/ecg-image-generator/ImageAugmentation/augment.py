@@ -38,7 +38,15 @@ def get_augment(input_file,output_directory,rotate=25,noise=25,crop=0.01,tempera
     leadNames_bbs = []
     
          
-    lead_bbs, leadNames_bbs, lead_bbs_labels, startTime_bbs, endTime_bbs, plotted_pixels = read_leads(json_dict['leads'])
+    if json_dict is not None:
+        lead_bbs, leadNames_bbs, lead_bbs_labels, startTime_bbs, endTime_bbs, plotted_pixels = read_leads(json_dict['leads'])
+    else:
+        lead_bbs = []
+        leadNames_bbs = []
+        lead_bbs_labels = []
+        startTime_bbs = []
+        endTime_bbs = []
+        plotted_pixels = []
     
     if bbox:
         lead_bbs = BoundingBoxesOnImage(lead_bbs, shape=image.shape)
@@ -79,4 +87,3 @@ def get_augment(input_file,output_directory,rotate=25,noise=25,crop=0.01,tempera
     plt.imsave(fname=f,arr=images_aug[0])
 
     return f
-
