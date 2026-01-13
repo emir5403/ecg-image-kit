@@ -259,3 +259,12 @@ Please direct any inquiries, bug reports or requests for joining the team to: [e
 
 
 ![Static Badge](https://img.shields.io/badge/ecg_image-kit-blue)
+
+
+python gen_ecg_images_from_data_batch.py \
+  -i /Volumes/ORTAK/GitHub/ecg-image-kit/codes/ecg-image-generator/SampleData/input \
+  -o /Volumes/ORTAK/GitHub/ecg-image-kit/codes/ecg-image-generator/SampleData/output \
+  --augment -rot 5 -noise 40 --deterministic_rot --deterministic_noise \
+  --hw_text -n 4 --x_offset 30 --y_offset 20 \
+  --wrinkles -ca 45 -se 10 \
+  --save_distortion_steps
