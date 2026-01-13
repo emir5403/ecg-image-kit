@@ -179,6 +179,8 @@ The basic mode of the tool creates ECG images without distortions. The mode of o
      python gen_ecg_images_from_data_batch.py -i my_input_dir -o my_output_dir --augment -rot 5 -noise 40 --deterministic_rot --deterministic_noise --hw_text -n 4 --x_offset 30 --y_offset 20 --wrinkles -ca 45 -se 10 --print_header --add_qr_code
      ```
 
+     To save step-by-step outputs (distortionless, handwritten text, wrinkles, augment, and final image), add `--save_distortion_steps`. This writes additional images alongside the final output with suffixes like `_step0_distortionless`, `_step1_hw_text`, `_step2_wrinkles`, `_step3_augment`, and `_step4_all`.
+
      - All distortions on synthetic images generated from the [PhysioNet PTB-XL](https://physionet.org/content/ptb-xl/)
 
      |                            |                             |
