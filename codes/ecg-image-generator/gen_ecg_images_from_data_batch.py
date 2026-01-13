@@ -70,6 +70,7 @@ def get_parser():
     parser.add_argument('--wrinkles',action='store_true',default=False)
     parser.add_argument('--augment',action='store_true',default=False)
     parser.add_argument('--lead_bbox',action='store_true',default=False)
+    parser.add_argument('--save_distortion_steps', action='store_true', default=False)
 
     return parser
 
