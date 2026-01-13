@@ -74,6 +74,7 @@ The basic mode of the tool creates ECG images without distortions. The mode of o
 - `--store_config`: Store config information for each image in a json file, type = int, Default: 0, constant value: 1, If `--store_config` is set to 1, the config file has high level attributes, refer template1.json. If  `--store_config` is set to 2, config file will have more detailed information, refer template2.json.
 - `--lead_name_bbox`: Store bounding box coordinates for the lead names in the json file under the attribute `text_bounding_box` in the config JSON file generated for every record (conditional); Add `--store_config` parameter to the command you are running. Note: Add `--store_config` parameter to the command you are running to save the config file with bounding box information. 
 - `--lead_bbox`:  Store bounding box coordinates for every individual ECG lead signal in the json file under the attribute `lead_bounding_box` in the config JSON file generated for every record (conditional). Note: Add `--store_config` parameter to the command you are running to save the config file with bounding box information. 
+  When `--lead_bbox` or `--lead_name_bbox` is set, the tool will automatically enable `--store_config` to ensure the JSON file is written.
 
      **Example:** 
      ```bash

@@ -112,6 +112,9 @@ def run_single_file(args):
         papersize = ''
         lead = args.remove_lead_names
 
+        if (args.lead_bbox or args.lead_name_bbox) and args.store_config == 0:
+            args.store_config = 1
+
         bernoulli_dc = bernoulli(args.calibration_pulse)
         bernoulli_bw = bernoulli(args.random_bw)
         bernoulli_grid = bernoulli(args.random_grid_present)
