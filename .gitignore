@@ -170,3 +170,5 @@ codes/ecg-image-generator/HandwrittenText.png
 *.hea
 *.json
 *.png
+*.npy
+*.jpg
