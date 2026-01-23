@@ -182,6 +182,8 @@ The basic mode of the tool creates ECG images without distortions. The mode of o
 
      To save step-by-step outputs (distortionless, handwritten text, wrinkles, augment, and final image), add `--save_distortion_steps`. This writes additional images alongside the final output with suffixes like `_step0_distortionless`, `_step1_hw_text`, `_step2_wrinkles`, `_step3_augment`, and `_step4_all`.
 
+     To keep only the step 0/1/2 PNG + JSON files (and copy the source `.dat`/`.hea` into the output folder), add `--only_step_outputs`. This flag automatically enables `--save_distortion_steps` and `--store_config 1`.
+
      - All distortions on synthetic images generated from the [PhysioNet PTB-XL](https://physionet.org/content/ptb-xl/)
 
      |                            |                             |
