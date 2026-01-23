@@ -81,6 +81,7 @@ def get_parser():
     parser.add_argument('--augment',action='store_true',default=False)
     parser.add_argument('--lead_bbox',action='store_true',default=False)
     parser.add_argument('--save_distortion_steps', action='store_true', default=False)
+    parser.add_argument('--only_step_outputs', action='store_true', default=False)
 
     return parser
 
@@ -112,6 +113,11 @@ def run_single_file(args):
         papersize = ''
         lead = args.remove_lead_names
 
+        if args.only_step_outputs:
+            args.save_distortion_steps = True
+            if args.store_config == 0:
+                args.store_config = 1
+
         if (args.lead_bbox or args.lead_name_bbox) and args.store_config == 0:
             args.store_config = 1
 
@@ -136,6 +142,11 @@ def run_single_file(args):
         configs = read_config_file(os.path.join(os.getcwd(), args.config_file))
 
         out_array = get_paper_ecg(input_file=filename,header_file=header, configs=configs, mask_unplotted_samples=args.mask_unplotted_samples, start_index=args.start_index, store_configs=args.store_config, store_text_bbox=args.lead_name_bbox, output_directory=args.output_directory,resolution=resolution,papersize=papersize,add_lead_names=lead,add_dc_pulse=bernoulli_dc,add_bw=bernoulli_bw,show_grid=bernoulli_grid,add_print=bernoulli_add_print,pad_inches=padding,font_type=font,standard_colours=standard_colours,full_mode=args.full_mode,bbox = args.lead_bbox, columns = args.num_columns, seed=args.seed)
+
+        if args.only_step_outputs:
+            os.makedirs(args.output_directory, exist_ok=True)
+            shutil.copy2(args.input_file, os.path.join(args.output_directory, os.path.basename(args.input_file)))
+            shutil.copy2(args.header_file, os.path.join(args.output_directory, os.path.basename(args.header_file)))
 
         def save_distortion_step(path, suffix, json_dict=None):
             if not args.save_distortion_steps:
@@ -265,6 +276,21 @@ def run_single_file(args):
                 img.save(out)
 
             save_distortion_step(out, "_step4_all", json_dict)
+
+            if args.only_step_outputs:
+                base_name, base_ext = os.path.splitext(os.path.basename(out))
+                allowed_suffixes = ["_step0_distortionless", "_step1_hw_text", "_step2_wrinkles"]
+                allowed_names = {
+                    f"{base_name}{suffix}{base_ext}" for suffix in allowed_suffixes
+                }
+                allowed_names.update(
+                    f"{base_name}{suffix}.json" for suffix in allowed_suffixes
+                )
+                for entry in os.listdir(args.output_directory):
+                    if entry in allowed_names:
+                        continue
+                    if entry.startswith(base_name) and entry.endswith((".png", ".json")):
+                        os.remove(os.path.join(args.output_directory, entry))
 
         return len(out_array)
 
